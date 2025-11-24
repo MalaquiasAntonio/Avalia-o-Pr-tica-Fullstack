@@ -1,6 +1,7 @@
 const borda = document.getElementById('borda');
 const user = document.getElementById('user');
 const login = document.getElementById('login');
+const entrar = document.getElementById('entrar');
 
 borda.addEventListener('mouseover',()=>{
     borda.style.backgroundColor = 'white';
@@ -20,3 +21,7 @@ borda.addEventListener('click',()=>{
     login.style.visibility = 'visible';
     return;
 });
+
+function logar(){
+    
+}
