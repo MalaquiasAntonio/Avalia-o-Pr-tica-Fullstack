@@ -16,6 +16,15 @@ app.get('/get/clientes',async(req,res)=>{
         return res.status(500).send('Erro interno do servidor ao buscar cliente.')
     }
 });
+app.get('/get/profissionais',async(req,res)=>{
+    try {
+        const [profissionais] = await db.query('SELECT * FROM profissional');
+        return res.status(201).send(profissionais);
+    } catch (error) {
+        console.error('Vish',error);
+        return res.status(500).send('Erro interno do servidor ao buscar profissionais.')
+    }
+});
 
 
 app.listen(port,()=>{

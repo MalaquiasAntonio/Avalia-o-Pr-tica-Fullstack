@@ -29,12 +29,28 @@ borda.addEventListener('click',()=>{
     return;
 });
 
-
-
-
 function logar(){
     console.log(senha.value)
     if(!senha.value){
         errou.style.visibility ='visible';
     }
 }
+
+let dados = document.getElementsByClassName('dados');
+    fetch(`http://localhost:3000/get/clientes`)
+        .then((response) =>{                           
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }                       
+        return response.json(); 
+    })
+    .then(data =>{
+        console.log('dados recebidos',data);
+        for(let x = 0; x < data.length; x++){
+            dados[x].innerHTML = `<p>${data[x].nome}</p> <p>${data[x].celular}</p> <p>${data[x].CEP}</p>`;
+        }
+    })                         
+    .catch(error=>{
+        console.error('Erro ao buscar dados:', error);
+    });           
+    console.log('Aqui'); 
