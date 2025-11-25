@@ -37,6 +37,7 @@ function logar(){
 }
 
 let dados = document.getElementsByClassName('dados');
+let block = document.getElementById('block');
     fetch(`http://localhost:3000/get/clientes`)
         .then((response) =>{                           
         if (!response.ok) {
@@ -48,12 +49,15 @@ let dados = document.getElementsByClassName('dados');
         console.log('dados recebidos',data);
         for(let x = 0; x < data.length; x++){
             if(dados.length < data.length){
-
+                block.innerHTML += '<div class="dados"><p>Antonio</p><p>554799194-7795</p><p>89253710</p></div>';
             }
-            dados[x].innerHTML = `<p>${data[x].nome}</p> <p>${data[x].celular}</p> <p>${data[x].CEP}</p>`;
+            dados[x].innerHTML = `<p>${data[x].nome}</p>`;
+            dados[x].innerHTML += `<p>${data[x].celular}</p>`;
+            dados[x].innerHTML += `<p>${data[x].CEP}</p>`;
+
         }
     })                         
     .catch(error=>{
         console.error('Erro ao buscar dados:', error);
     });           
-    console.log('Aqui'); 
+ 
