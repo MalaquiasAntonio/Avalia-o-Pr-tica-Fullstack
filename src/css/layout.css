@@ -1,7 +1,7 @@
 header{
     padding: 10px;
     display: flex;
-    background-color: rgba(150, 150, 150, 0.726);
+    background-color: rgb(0, 0, 0);
     height: 6vh;
     align-items: center;
     justify-content: space-between;
