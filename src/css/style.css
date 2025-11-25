@@ -60,5 +60,84 @@ body{
 }
 
 #dadosMostrar{
+    display: flex;
+    align-items: center;
+    height: 45vh;
+    flex-direction: column;
+}
+
+#tabela{
+    width: 60vw;
+}
+
+#titulos{
+    display: flex;
+    width: 60.3vw;
+    height: 3vh;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(102, 102, 102, 0.205);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.dados{
+    display: flex;
+    width: 60vw;
+    padding: 10px;
+    justify-content: space-between;
     background-color: white;
+    border: 3px solid rgba(102, 102, 102, 0.486);
+}
+
+.dados2{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#blockPes{
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 61vw;
+    height: 8vh;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: rgba(102, 102, 102, 0.205);
+}
+
+#dadosMostrar input{
+    width: 60.1vw;
+    border-radius: 5px;
+    height: 6vh;
+    border: none;
+    padding: 5px;
+    font-size: 15px;
+    position: absolute;
+}
+#dadosMostrar i{
+    position: absolute;
+    font-size: 20px;
+    right: 5px;
+}
+
+#dadosMostrar button{
+    background-color: rgb(0, 0, 161);
+    color: white;
+    width: 12vw;
+    height: 5vh;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    margin: 15px;
+    transition: 0.4s;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#dadosMostrar button:hover{
+    background-color: white;
+    color: rgb(0, 0, 161);
 }
