@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Vend+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
-    <title>Prossional</title>
+    <title>Agendamentos</title>
 </head>
 <body>
     <header>
@@ -33,36 +33,63 @@
         </div>
     </header>
     <main>
-        <section id="dadosMostrar">
-            <h2 style="margin: 15px;">Profissionais</h2>
+        <section id="filtros">
+            <h3>Filtros</h3>
+            <br>
+            <div style="display: flex; flex-direction: column;">
+                <label>Selecione um Cliente:</label>
+                <select name="" id="">
+                    <option value="-">-</option>
+                    <option value="Antonio">Antonio</option>
+                    <option value="Roberto">Roberto</option>
+                    <option value="Marcos">Marcos</option>
+                </select>
+            </div>
+            <br>
             <div>
-                <div style="display: flex; align-items: center; width: 100vw; flex-direction: column;">
+                <label>Selecione um serviço:</label>
+                <select name="" id="">
+                    <option value="-">-</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <label>Selecione um Profissional:</label>
+                <select name="" id="">
+                    <option value="-">-</option>
+                </select>
+            </div>
+        </section>
+        <section id="dadosMostrar">
+            <h2 style="margin: 15px;">Agendamentos</h2>
+            <div>
+                <div style="display: flex; align-items: center; width: 93vw; flex-direction: column;">
                     <div id="blockPes">
                         <input type="text" placeholder="Buscar Profissional...">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
                     <div id="titulos">
-                        <h3>Nome</h3>
-                        <h3>Celular</h3>
-                        <h3>Disponibilidade</h3>
+                        <h3>Data</h3>
+                        <h3>Horário</h3>
+                        <h3>Cliente</h3>
                     </div>
                     <div class="dados">
-                        <p>Charmes</p>
-                        <p>554799194-7795</p>
-                        <p>89253710</p>
-                    </div>
-                    <div class="dados">
+                        <p>05/10/2025</p>
+                        <p>14:30</p>
                         <p>Antonio</p>
-                        <p>554799194-7795</p>
-                        <p>89253710</p>
+                    </div>
+                    <div class="dados">
+                        <p>-</p>
+                        <p>-</p>
+                        <p>-</p>
                     </div>
                     <div class="dados dados2">
-                        <p>Antonio</p>
-                        <p>554799194-7795</p>
-                        <p>89253710</p>
+                        <p>-</p>
+                        <p>-</p>
+                        <p>-</p>
                     </div>
                     <div style="width: 64vw; display: flex; ">
-                        <button>Novo Profissional</button>
+                        <button>Novo Agendamento</button>
                     </div>
                 </div>
             </div>
