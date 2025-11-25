@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/css/layout.css">
+     <link rel="stylesheet" href="/src/css/layout.css">
     <link rel="stylesheet" href="/src/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Vend+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
-    <title>Home</title>
+    <title>Serviço</title>
 </head>
 <body>
     <header>
-        <h2 style="color: white;">Me Organiza</h2>
+        <a href="./index.html" style="text-decoration: none;">
+            <h2 style="color: white;">Me Organiza</h2>
+        </a>
         <div id="borda">
             <i class="fa-regular fa-user" id="user"></i>
         </div>
@@ -31,33 +33,37 @@
         </div>
     </header>
     <main>
-        <section id="interface">
-            <div class="row">
-                <div id="cliente">
-                    <a href="./cadastro.html">
-                    <i class="fa-solid fa-user-plus"></i>
-                    <p>Cadastro de Cliente</p>
-                    </a>
-                </div>
-                <div id="servico">
-                    <a href="./servico.html">    
-                        <i class="fa-regular fa-square-plus"></i>
-                        <p>Cadastro de Serviço</p>
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div id="profi">
-                    <a href="./profissional.html">
-                        <i class="fa-regular fa-address-card"></i>
-                        <p>Cadastro de Profissional</p>
-                    </a>
-                </div>
-                <div id="agendamentos">
-                    <a href="./agendamento.html">
-                        <i class="fa-regular fa-calendar-days"></i>
-                        <p>Agendamentos</p>
-                    </a>
+        <section id="dadosMostrar">
+            <h2 style="margin: 15px;">Serviços</h2>
+            <div>
+                <div style="display: flex; align-items: center; width: 100vw; flex-direction: column;">
+                    <div id="blockPes">
+                        <input type="text" placeholder="Buscar Serviços...">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <div id="titulos">
+                        <h3>Tipo</h3>
+                        <h3>Descrição</h3>
+                        <h3>Situação</h3>
+                    </div>
+                    <div class="dados">
+                        <p>-</p>
+                        <p>-</p>
+                        <p>-</p>
+                    </div>
+                    <div class="dados">
+                        <p>-</p>
+                        <p>-</p>
+                        <p>-</p>
+                    </div>
+                    <div class="dados dados2">
+                        <p>-</p>
+                        <p>-</p>
+                        <p>-</p>
+                    </div>
+                    <div style="width: 64vw; display: flex; ">
+                        <button>Novo Serviço</button>
+                    </div>
                 </div>
             </div>
         </section>
