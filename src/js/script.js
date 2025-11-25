@@ -47,6 +47,9 @@ let dados = document.getElementsByClassName('dados');
     .then(data =>{
         console.log('dados recebidos',data);
         for(let x = 0; x < data.length; x++){
+            if(dados.length < data.length){
+
+            }
             dados[x].innerHTML = `<p>${data[x].nome}</p> <p>${data[x].celular}</p> <p>${data[x].CEP}</p>`;
         }
     })                         
