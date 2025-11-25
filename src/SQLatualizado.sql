@@ -1,0 +1,1 @@
+SELECT * FROM me_organiza.cliente;
