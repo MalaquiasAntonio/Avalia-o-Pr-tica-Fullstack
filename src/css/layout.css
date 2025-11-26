@@ -72,3 +72,9 @@ header i{
     color: red;
     visibility: hidden;
 }
+
+#name{
+    color: white;
+    font-size: 13px;
+    visibility: hidden;
+}

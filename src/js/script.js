@@ -1,3 +1,4 @@
+
 const borda = document.getElementById('borda');
 const user = document.getElementById('user');
 const login = document.getElementById('login');
@@ -8,6 +9,9 @@ const cliente = document.getElementById('cliente');
 const servico = document.getElementById('servico');
 const profi = document.getElementById('profi');
 const agendamentos = document.getElementById('agendamentos');
+const nome = document.getElementById('name');
+let noma = localStorage.getItem('dados.nome');
+let session = localStorage.getItem('dados.session');
 
 borda.addEventListener('mouseover',()=>{
     borda.style.backgroundColor = 'white';
@@ -24,40 +28,89 @@ borda.addEventListener('click',()=>{
         login.style.visibility = 'hidden';
         errou.style.visibility ='hidden';
         return;
+    }else if(!session){
+        login.style.visibility = 'visible';
+        return;
     }
+    login.innerHTML = '<button type="submit" id="entrar" onclick="logar()">Sair</button>';
     login.style.visibility = 'visible';
-    return;
 });
-
-function logar(){
-    console.log(senha.value)
-    if(!senha.value){
-        errou.style.visibility ='visible';
+let dados = {};
+async function logar (){
+    if(!session){
+        let email = document.getElementById('email');
+        dados = {
+            email: email.value,
+            senha: senha.value
+        };
+        if(!senha.value || !email.value){
+            errou.style.visibility ='visible';
+            return;
+        }
+        await fetch('http://localhost:3000/get/usuario',{
+            method:'POST',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+           body: JSON.stringify(dados)
+        })
+            .then((response)=>{
+                if(!response.ok){
+                    throw new Error(`Erro HTTP: ${response.status}`);
+                }
+                return response.json(); 
+            })
+            .then(data =>{
+                console.log('dados recebidos',data);
+                dados = {
+                    session: data.sessionId,
+                    email: data.email,
+                    nome: data.nome
+                }
+            })                         
+            .catch(error=>{
+                console.error('Erro ao buscar dados:', error);
+            });
+       if(!dados.session){
+            errou.style.visibility ='visible';
+            return ;
+       }
+        login.style.visibility = 'hidden';
+        errou.style.visibility ='hidden';
+        nome.innerText = `Bem vindo, ${dados.nome}`;
+        nome.style.visibility = 'visible';
+        localStorage.setItem('dados.nome',dados.nome);
+        localStorage.setItem('dados.session',dados.session);
+        return;
     }
+    fetch('http://localhost:3000/logout',{
+        method:'POST',
+        headers:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session}`,
+        }
+    })
+        .then(response =>{
+            if(!response.ok){
+                throw new Error('Erro.');
+            }
+            return response.json();
+        })
+        .then(dadosEnviados=>{
+            console.log(dadosEnviados);
+        })
+        .catch(error=>{
+            console.error('Falha na requisição:', error);
+        });
 }
 
-let dados = document.getElementsByClassName('dados');
-let block = document.getElementById('block');
-    fetch(`http://localhost:3000/get/clientes`)
-        .then((response) =>{                           
-        if (!response.ok) {
-            throw new Error(`Erro HTTP: ${response.status}`);
-        }                       
-        return response.json(); 
-    })
-    .then(data =>{
-        console.log('dados recebidos',data);
-        for(let x = 0; x < data.length; x++){
-            if(dados.length < data.length){
-                block.innerHTML += '<div class="dados"><p>Antonio</p><p>554799194-7795</p><p>89253710</p></div>';
-            }
-            dados[x].innerHTML = `<p>${data[x].nome}</p>`;
-            dados[x].innerHTML += `<p>${data[x].celular}</p>`;
-            dados[x].innerHTML += `<p>${data[x].CEP}</p>`;
 
-        }
-    })                         
-    .catch(error=>{
-        console.error('Erro ao buscar dados:', error);
-    });           
- 
+document.addEventListener('DOMContentLoaded',()=>{
+    if(session){
+        nome.innerText = `Bem vindo, ${noma}`;
+        nome.style.visibility = 'visible';
+        return;
+    }
+});

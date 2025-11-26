@@ -7,6 +7,25 @@ const db = require('./db');
 app.use(express.json());
 app.use(cors({origin:true,credentials:true}));
 
+
+const sessions = new Map();
+function generateSessionId() {
+    const timestamp = Date.now().toString(36);
+    const randomPart = Math.random().toString(36).substr(2, 9);
+    return timestamp + randomPart;
+  }
+
+function authenticate(req,res,next){
+    const token = req.headers['Authorization'];
+    if(!token)  return res.status(401).send('Sessão não informada');
+    const session = sessions.get(token);
+    if(!session) return res.status(401).send('Sessão inválida');
+    req.user = {id: session.idUsuarios,email: session.email};
+    next();
+}
+
+
+
 app.get('/get/clientes',async(req,res)=>{
     try {
         const [clientes] = await db.query('SELECT * FROM cliente');
@@ -25,6 +44,40 @@ app.get('/get/profissionais',async(req,res)=>{
         return res.status(500).send('Erro interno do servidor ao buscar profissionais.')
     }
 });
+
+app.post('/get/usuario',async(req,res)=>{
+    const {email,senha} = req.body;
+    if(!email || !senha){
+        return res.status(401).send('Falta Valores');
+    }
+    try {
+        const [usuario] = await db.query('SELECT * FROM usuario WHERE email = ?',[email]);
+        if(usuario[0].email !== email || usuario[0].senha !== senha){
+            return res.status(400).send('Credenciais inválidas');
+        }
+        const user = usuario[0];
+        const sessionId = generateSessionId();
+        sessions.set(sessionId, {user: user.idUsuarios, email: user.email});
+        return res.send({
+            sessionId,
+            user: user.idUsuarios, nome: user.nome, email: user.email
+        });
+    } catch (error) {
+        console.error('Vish',error);
+        return res.status(500).send('Erro interno do servidor ao buscar.');
+    }
+});
+app.post('/logout',authenticate,(req,res)=>{
+    const token = req.headers['Authorization'];
+    if(token && sessions.has(token)) sessions.delete(token);
+    return res.sendStatus(204);
+});
+
+
+
+// app.delete('/delete/:value',async(req,res)=>{
+//     const value = req.params.value;
+// });
 
 
 app.listen(port,()=>{
