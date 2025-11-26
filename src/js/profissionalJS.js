@@ -1,3 +1,4 @@
+
 const borda = document.getElementById('borda');
 const user = document.getElementById('user');
 const login = document.getElementById('login');
@@ -123,37 +124,38 @@ async function logar (){
     // login.style.visibility = 'hidden';
 
 
-let dades = document.getElementsByClassName('dados');
-let block = document.getElementById('block');
-    fetch(`http://localhost:3000/get/clientes`)
-        .then((response) =>{                           
-        if (!response.ok) {
-            throw new Error(`Erro HTTP: ${response.status}`);
-        }                       
-        return response.json(); 
-    })
-    .then(data =>{
-        console.log('dados recebidos',data);
-        for(let x = 0; x < data.length; x++){
-            if(dades.length < data.length){
-                block.innerHTML += '<div class="dados"><p>Antonio</p><p>554799194-7795</p><p>89253710</p></div>';
+document.addEventListener('DOMContentLoaded',()=>{
+    let dados2 = document.getElementsByClassName('dados');
+    let block = document.getElementById('block');
+    fetch('http://localhost:3000/get/profissionais')
+        .then(response=>{
+            if(!response.ok){
+                throw new Error(`Erro HTTP: ${response.status}`);
+                }
+                return response.json(); 
+        })
+        .then(data=>{
+            console.log(data)
+            for(let x = 0; x < data.length;x++){
+                if(dados2.length < data.length){
+                    block.innerHTML += '<div class="dados"><p>Charmes</p><p>554799194-7795</p><p>89253710</p></div>'
+                }
+                dados2[x].innerHTML = `<p>${data[x].nome}</p>`;
+                dados2[x].innerHTML += `<p>${data[x].celular}</p>`;
+                if(data[x].disponibilidade == 1){
+                    dados2[x].innerHTML += `<p>Disponível</p>`;
+                }else{
+                    dados2[x].innerHTML += `<p>Não Disponível</p>`;
+                }
             }
-            dades[x].innerHTML = `<p>${data[x].nome}</p>`;
-            dades[x].innerHTML += `<p>${data[x].celular}</p>`;
-            dades[x].innerHTML += `<p>${data[x].CEP}</p>`;
+        })
+        .catch(error=>{
+            console.error('Erro ao buscar dados:', error);
+        })
 
-        }
-    })                         
-    .catch(error=>{
-        console.error('Erro ao buscar dados:', error);
-    });
-    
-    document.addEventListener('DOMContentLoaded',()=>{
-        let name = localStorage.getItem('dados.nome');
-        let session = localStorage.getItem('dados.session');
-        if(session){
-            nome.innerText = `Bem vindo, ${name}`;
-            nome.style.visibility = 'visible';
-            return;
-        }
-    });
+    if(session){
+        nome.innerText = `Bem vindo, ${noma}`;
+        nome.style.visibility = 'visible';
+        return;
+    }
+});

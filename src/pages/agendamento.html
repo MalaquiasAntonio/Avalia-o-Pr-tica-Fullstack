@@ -63,7 +63,7 @@
         </section>
         <section id="dadosMostrar">
             <h2 style="margin: 15px;">Agendamentos</h2>
-            <div>
+            <div style="display: flex; flex-direction: column; align-items: center;">
                 <div style="display: flex; align-items: center; width: 93vw; flex-direction: column;">
                     <div id="blockPes">
                         <input type="text" placeholder="Buscar Profissional...">
@@ -89,13 +89,15 @@
                         <p>-</p>
                         <p>-</p>
                     </div>
-                    <div style="width: 64vw; display: flex; ">
-                        <button>Novo Agendamento</button>
-                    </div>
+                </div>
+                <div>
+                    <button>Novo Agendamento</button>
+                    <button>Editar</button>
+                    <button>Excluir</button>
                 </div>
             </div>
         </section>
     </main>
-    <script src="/src/js/script.js"></script>
+    <script src="/src/js/agendamentoJS.js"></script>
 </body>
 </html>

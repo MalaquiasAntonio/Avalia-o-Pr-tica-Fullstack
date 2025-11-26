@@ -1,3 +1,4 @@
+
 const borda = document.getElementById('borda');
 const user = document.getElementById('user');
 const login = document.getElementById('login');
@@ -123,37 +124,52 @@ async function logar (){
     // login.style.visibility = 'hidden';
 
 
-let dades = document.getElementsByClassName('dados');
-let block = document.getElementById('block');
-    fetch(`http://localhost:3000/get/clientes`)
-        .then((response) =>{                           
-        if (!response.ok) {
-            throw new Error(`Erro HTTP: ${response.status}`);
-        }                       
-        return response.json(); 
-    })
-    .then(data =>{
-        console.log('dados recebidos',data);
-        for(let x = 0; x < data.length; x++){
-            if(dades.length < data.length){
-                block.innerHTML += '<div class="dados"><p>Antonio</p><p>554799194-7795</p><p>89253710</p></div>';
-            }
-            dades[x].innerHTML = `<p>${data[x].nome}</p>`;
-            dades[x].innerHTML += `<p>${data[x].celular}</p>`;
-            dades[x].innerHTML += `<p>${data[x].CEP}</p>`;
+document.addEventListener('DOMContentLoaded',()=>{
+    let dados2 = document.getElementsByClassName('dados');
+    let block = document.getElementById('block');
+    let dadosId = '';
+    let dadosNome = '';
 
-        }
-    })                         
-    .catch(error=>{
-        console.error('Erro ao buscar dados:', error);
-    });
-    
-    document.addEventListener('DOMContentLoaded',()=>{
-        let name = localStorage.getItem('dados.nome');
-        let session = localStorage.getItem('dados.session');
-        if(session){
-            nome.innerText = `Bem vindo, ${name}`;
-            nome.style.visibility = 'visible';
-            return;
-        }
-    });
+
+    fetch('http://localhost:3000/get/clientes')
+        .then(response=>{
+            if(!response.ok){
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data=>{
+            console.log(data[0].nome);
+        })
+
+
+
+    fetch('http://localhost:3000/get/agendamento')
+        .then(response=>{
+            if(!response.ok){
+                throw new Error(`Erro HTTP: ${response.status}`);
+                }
+                return response.json(); 
+        })
+        .then(data=>{
+            console.log(data)
+            for(let x = 0; x < data.length;x++){
+                if(dados2.length < data.length){
+                    block.innerHTML += '<div class="dados"><p>-</p><p>-</p><p>-</p></div>'
+                }
+                dados2[x].innerHTML = `<p>${data[x].dat.slice(0,-14)}</p>`;
+                dados2[x].innerHTML += `<p>${data[x].hora}</p>`;
+                // dados2[x].innerHTML += `<p>${data[x].situacao}</p>`;
+                
+            }
+        })
+        .catch(error=>{
+            console.error('Erro ao buscar dados:', error);
+        })
+
+    if(session){
+        nome.innerText = `Bem vindo, ${noma}`;
+        nome.style.visibility = 'visible';
+        return;
+    }
+});

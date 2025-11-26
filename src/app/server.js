@@ -49,6 +49,27 @@ app.get('/get/profissionais',async(req,res)=>{
     }
 });
 
+
+app.get('/get/servicos',async(req,res)=>{
+    try {
+        const [servicos] = await db.query('SELECT * FROM serviço');
+        return res.status(201).send(servicos);
+    } catch (error) {
+        console.error('Vish',error);
+        return res.status(500).send('Erro')
+    }   
+});
+
+app.get('/get/agendamento',async(req,res)=>{
+    try {
+        const [agendas] = await db.query('SELECT * FROM agendamento');
+        return res.status(201).send(agendas);
+    } catch (error) {
+        console.error('Vish',error);
+        return res.status(500).send('Error');
+    }
+});
+
 app.post('/get/usuario',async(req,res)=>{
     const {email,senha} = req.body;
     if(!email || !senha){

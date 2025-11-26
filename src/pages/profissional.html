@@ -36,8 +36,8 @@
     <main>
         <section id="dadosMostrar">
             <h2 style="margin: 15px;">Profissionais</h2>
-            <div>
-                <div style="display: flex; align-items: center; width: 100vw; flex-direction: column;">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <div style="display: flex; align-items: center; width: 100vw; flex-direction: column;" id="block">
                     <div id="blockPes">
                         <input type="text" placeholder="Buscar Profissional...">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -57,18 +57,20 @@
                         <p>554799194-7795</p>
                         <p>89253710</p>
                     </div>
-                    <div class="dados dados2">
+                    <div class="dados">
                         <p>Antonio</p>
                         <p>554799194-7795</p>
                         <p>89253710</p>
                     </div>
-                    <div style="width: 64vw; display: flex; ">
-                        <button>Novo Profissional</button>
-                    </div>
+                </div>
+                <div>
+                    <button>Novo Profissional</button>
+                    <button>Editar</button>
+                    <button>Excluir</button>
                 </div>
             </div>
         </section>
     </main>
-    <script src="/src/js/script.js"></script>
+    <script src="/src/js/profissionalJS.js"></script>
 </body>
 </html>
