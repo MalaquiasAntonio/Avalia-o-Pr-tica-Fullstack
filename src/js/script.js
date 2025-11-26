@@ -13,6 +13,10 @@ const nome = document.getElementById('name');
 let noma = localStorage.getItem('dados.nome');
 let session = localStorage.getItem('dados.session');
 
+
+const antes = '<form><label>Email</label><input type="text" placeholder="Email" id="email"><br><label>Senha</label><input type="password" placeholder="Senha" id="senha" required><p id="errou">Credenciais inválidas*</p></form><br><button type="submit" id="entrar" onclick="logar()">Entrar</button>';
+
+
 borda.addEventListener('mouseover',()=>{
     borda.style.backgroundColor = 'white';
     borda.style.borderColor = 'white';
@@ -82,6 +86,8 @@ async function logar (){
         nome.style.visibility = 'visible';
         localStorage.setItem('dados.nome',dados.nome);
         localStorage.setItem('dados.session',dados.session);
+        noma = localStorage.getItem('dados.nome');
+        session = localStorage.getItem('dados.session');
         return;
     }
     fetch('http://localhost:3000/logout',{
@@ -96,15 +102,26 @@ async function logar (){
             if(!response.ok){
                 throw new Error('Erro.');
             }
-            return response.json();
+            // return response.json();
         })
         .then(dadosEnviados=>{
+            localStorage.removeItem('dados.session');
+            localStorage.removeItem('dados.nome');
+            session = null;
+            nome.style.visibility = 'hidden';
+            login.style.visibility = 'hidden';
+            login.innerHTML = antes;
             console.log(dadosEnviados);
         })
         .catch(error=>{
             console.error('Falha na requisição:', error);
         });
-}
+    }
+    // localStorage.removeItem('dados.session');
+    // localStorage.removeItem('dados.nome');
+    // session = null;
+    // nome.style.visibility = 'hidden';
+    // login.style.visibility = 'hidden';
 
 
 document.addEventListener('DOMContentLoaded',()=>{

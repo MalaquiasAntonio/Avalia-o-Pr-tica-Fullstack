@@ -16,9 +16,13 @@ function generateSessionId() {
   }
 
 function authenticate(req,res,next){
-    const token = req.headers['Authorization'];
+    const header = req.headers['authorization'];
+    const token = header.slice(7);
+    console.log(token);
+    console.log(sessions);
     if(!token)  return res.status(401).send('Sessão não informada');
     const session = sessions.get(token);
+    console.log('Passou ', session);
     if(!session) return res.status(401).send('Sessão inválida');
     req.user = {id: session.idUsuarios,email: session.email};
     next();
@@ -57,10 +61,10 @@ app.post('/get/usuario',async(req,res)=>{
         }
         const user = usuario[0];
         const sessionId = generateSessionId();
-        sessions.set(sessionId, {user: user.idUsuarios, email: user.email});
+        sessions.set(sessionId, {idUsuarios: user.idUsuario, email: user.email});
         return res.send({
             sessionId,
-            user: user.idUsuarios, nome: user.nome, email: user.email
+            user: user.idUsuario, nome: user.nome, email: user.email
         });
     } catch (error) {
         console.error('Vish',error);
@@ -68,8 +72,10 @@ app.post('/get/usuario',async(req,res)=>{
     }
 });
 app.post('/logout',authenticate,(req,res)=>{
-    const token = req.headers['Authorization'];
+    const header = req.headers['authorization'];
+    const token = header.slice(7);
     if(token && sessions.has(token)) sessions.delete(token);
+    console.log(sessions);
     return res.sendStatus(204);
 });
 
