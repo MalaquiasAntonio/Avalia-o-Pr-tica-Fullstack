@@ -33,7 +33,7 @@
         </div>
         <h5 id="name">Bem Vindo, Antonio</h5>
     </header>
-    <main>
+    <main id="main">
         <section id="dadosMostrar">
             <h2 style="margin: 15px;">CLIENTES</h2>
             <div style="display: flex; flex-direction: column; align-items: center;">
@@ -66,13 +66,39 @@
                     </div>
                 </div>
                 <div>
-                    <button>Novo Cliente</button>
+                    <button id="new">Novo Cliente</button>
                     <button>Editar</button>
                     <button>Excluir</button>
                 </div>
             </div>
         </section>
-    </main>
+    </div>
+</div>
+</main>
+<div class="blockCadastro">
+    <button id="fechar"><i class="fa-solid fa-x"></i></button>
+    <h3> Cadastrar Novo Cliente</h3>
+    <div>
+        <form action="">
+            <div class="registrarRow">
+                <div>
+                    <label>Nome</label>
+                    <input type="text" placeholder="Nome...">
+                </div>
+                <div>
+                    <label>Celular</label>
+                    <input type="text" placeholder="Celular...">
+                </div>
+            </div>
+            <div style="margin-top: 20px;" class="registrarRow">
+                <div style="display: flex; flex-direction: column;">
+                    <label>CEP</label>
+                    <input type="text" placeholder="CEP...">
+                </div>
+            </div>
+        </form>
+        <br>
+        <button>Cadastrar</button>
     <script src="/src/js/cadastroJS.js">      
     </script>
 </body>

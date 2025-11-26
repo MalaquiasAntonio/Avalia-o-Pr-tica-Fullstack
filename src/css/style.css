@@ -163,3 +163,57 @@ main{
     height: 4vh;
     margin-top: 5px;
 }
+
+.blockCadastro{
+    position: absolute;
+    right: 25vw;
+    top: 17vh;
+    width: 46vw;
+    height: 45vh;
+    background-color: rgb(158, 158, 158);
+    border-radius: 7px;
+    padding: 20px;
+    visibility: hidden;
+}
+
+.blockCadastro form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+.blockCadastro input{
+    margin-top: 10px;
+    width: 20vw;
+    height: 3vh;
+    padding: 8px;
+    border-radius: 3px;
+    border: none;
+}
+.registrarRow{
+    display: flex;
+    flex-direction: row;
+    width: 48vw;
+}
+
+.blockCadastro button{
+    height: 4vh;
+    width: 10vw;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 650;
+    transition: 0.4s;
+}
+.blockCadastro button:hover{
+    background-color: white;
+    color: black;
+}
+
+#fechar{
+    position: absolute;
+    right: -10px;
+    top: -5px;
+    width: 2.5vw;
+    border-radius: 25px;
+}

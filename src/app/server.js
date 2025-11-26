@@ -100,7 +100,19 @@ app.post('/logout',authenticate,(req,res)=>{
     return res.sendStatus(204);
 });
 
-
+app.post('/post/cliente',async(req,res)=>{
+    let {nome,celular,CEP} = req.body;
+    if(!nome || !celular || !CEP){
+        return res.status(404).send('Falta informação');
+    }
+    try {
+        const [novoCliente] = await db.query('INSER INTO cliente(nome,celular,CEP) VALUES(?,?,?)',[nome,celular,CEP]);
+        return res.status(201).send(novoCliente);
+    } catch (error) {
+        console.error('Vish',error);
+        return res.status(500).send('Deu ruim');
+    }
+});
 
 // app.delete('/delete/:value',async(req,res)=>{
 //     const value = req.params.value;

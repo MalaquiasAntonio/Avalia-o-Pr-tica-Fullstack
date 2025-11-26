@@ -12,6 +12,9 @@ const agendamentos = document.getElementById('agendamentos');
 const nome = document.getElementById('name');
 let noma = localStorage.getItem('dados.nome');
 let session = localStorage.getItem('dados.session');
+const escolha = document.getElementById('escolha');
+const escolh = document.getElementById('escolh');
+const escol = document.getElementById('escol');
 
 
 const antes = '<form><label>Email</label><input type="text" placeholder="Email" id="email"><br><label>Senha</label><input type="password" placeholder="Senha" id="senha" required><p id="errou">Credenciais inválidas*</p></form><br><button type="submit" id="entrar" onclick="logar()">Entrar</button>';
@@ -124,14 +127,17 @@ async function logar (){
     // login.style.visibility = 'hidden';
 
 
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded', async()=>{
     let dados2 = document.getElementsByClassName('dados');
     let block = document.getElementById('block');
-    let dadosId = '';
-    let dadosNome = '';
+    let dadosId = [];
+    let dadosNome = [];
 
 
-    fetch('http://localhost:3000/get/clientes')
+    
+
+
+    await fetch('http://localhost:3000/get/clientes')
         .then(response=>{
             if(!response.ok){
                 throw new Error(`Erro HTTP: ${response.status}`);
@@ -139,16 +145,23 @@ document.addEventListener('DOMContentLoaded',()=>{
             return response.json();
         })
         .then(data=>{
-            console.log(data[0].nome);
+            for(let i = 0; i < data.length; i++){
+                dadosId.push(data[i].idCliente)
+                dadosNome.push(data[i].nome)
+            }
+            console.log(dadosId,dadosNome);
         })
+        .catch(error=>{
+            console.error('Erro ao buscar dados:', error);
+        });
 
 
 
-    fetch('http://localhost:3000/get/agendamento')
+    await fetch('http://localhost:3000/get/agendamento')
         .then(response=>{
             if(!response.ok){
                 throw new Error(`Erro HTTP: ${response.status}`);
-                }
+            }
                 return response.json(); 
         })
         .then(data=>{
@@ -159,13 +172,55 @@ document.addEventListener('DOMContentLoaded',()=>{
                 }
                 dados2[x].innerHTML = `<p>${data[x].dat.slice(0,-14)}</p>`;
                 dados2[x].innerHTML += `<p>${data[x].hora}</p>`;
-                // dados2[x].innerHTML += `<p>${data[x].situacao}</p>`;
+                if(dadosId[x] == data[x].idDoCliente){
+                    dados2[x].innerHTML += `<p>${dadosNome[x]}</p>`;
+                }
                 
             }
         })
         .catch(error=>{
             console.error('Erro ao buscar dados:', error);
         })
+
+    await fetch('http://localhost:3000/get/profissionais')
+        .then(response=>{
+            if(!response.ok){
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data=>{
+            console.log(data)
+            for(let v = 0; v < data.length;v++){
+                console.log(data[v].tipo);
+                escolh.innerHTML += `<option value=${data[v].nome}>${data[v].nome}</option>`
+            } 
+        })
+        .catch(error=>{
+            console.error('Deu ruim',error);
+        })
+    await fetch('http://localhost:3000/get/servicos')
+        .then(response=>{
+            if(!response.ok){
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data=>{
+            console.log(data)
+            for(let v = 0; v < data.length;v++){
+                console.log(data[v].tipo);
+                escol.innerHTML += `<option value=${data[v].tipo}>${data[v].tipo}</option>`
+            } 
+        })
+        .catch(error=>{
+            console.error('Deu ruim',error);
+        })
+
+    for(let v = 0; v < dadosNome.length;v++){
+        escolha.innerHTML += `<option value=${dadosNome[v]}>${dadosNome[v]}</option>`
+    } 
+
 
     if(session){
         nome.innerText = `Bem vindo, ${noma}`;

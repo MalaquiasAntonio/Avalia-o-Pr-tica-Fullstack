@@ -11,10 +11,25 @@ const agendamentos = document.getElementById('agendamentos');
 const nome = document.getElementById('name');
 let noma = localStorage.getItem('dados.nome');
 let session = localStorage.getItem('dados.session');
+const blockCadastro = document.getElementsByClassName('blockCadastro');
+const novo = document.getElementById('new');
+const main = document.getElementById('main');
+const fechar = document.getElementById('fechar');
+
 
 
 const antes = '<form><label>Email</label><input type="text" placeholder="Email" id="email"><br><label>Senha</label><input type="password" placeholder="Senha" id="senha" required><p id="errou">Credenciais inválidas*</p></form><br><button type="submit" id="entrar" onclick="logar()">Entrar</button>';
 
+
+
+novo.addEventListener('click',()=>{
+    main.style.filter = 'blur(5px)';
+    blockCadastro[0].style.visibility = 'visible';
+});
+fechar.addEventListener('click',()=>{
+    blockCadastro[0].style.visibility = 'hidden'
+    main.style.filter = 'blur(0px)';
+});
 
 borda.addEventListener('mouseover',()=>{
     borda.style.backgroundColor = 'white';
