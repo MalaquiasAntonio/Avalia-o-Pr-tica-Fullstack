@@ -73,6 +73,9 @@ INSERT INTO profissional(nome,celular,disponibilidade) VALUES
 ('Carlos','554754321-9876',TRUE),
 ('Ricardo','554798765-4321',FALSE);
 
+INSERT INTO profissional(nome,celular,disponibilidade) VALUES
+('Uesley','554798765-4321',FALSE);
+
 INSERT INTO agendamento(idDoCliente,idDoProfissional,dat,hora) VALUES
 ((SELECT idCliente FROM cliente WHERE idCliente = 1),(SELECT idProfissional FROM profissional WHERE idProfissional =3),'2025-10-05','14:30'),
 ((SELECT idCliente FROM cliente WHERE idCliente = 2),(SELECT idProfissional FROM profissional WHERE idProfissional =2),'2025-12-07','8:00'),
@@ -97,3 +100,6 @@ ADD column nome varchar(450) not null;
 
 update usuario
 set nome = 'Malaquias' WHERE idUsuario = 1;
+
+update serviço
+set tipo = 'Reparos' WHERE idServico = 3;
