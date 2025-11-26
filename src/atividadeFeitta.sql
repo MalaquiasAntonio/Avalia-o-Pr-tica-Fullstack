@@ -63,6 +63,11 @@ INSERT INTO cliente(nome,celular,CEP) VALUES
 ('Roberto','554712345-6789','89253710'),
 ('Marcos','554754321-9876','89253710');
 
+
+INSERT INTO cliente(nome,celular,CEP) VALUES
+('Roger','554712345-6789','89253710');
+
+
 INSERT INTO profissional(nome,celular,disponibilidade) VALUES
 ('Charmes','554712345-6789',TRUE),
 ('Carlos','554754321-9876',TRUE),
@@ -84,3 +89,11 @@ INSERT INTO servicos_has_agendamento(agendamento_id,servico_id) VALUES
 ((SELECT idServico FROM serviço WHERE idServico = 1),(SELECT idAgendamento FROM agendamento WHERE idAgendamento = 1)),
 ((SELECT idServico FROM serviço WHERE idServico = 2),(SELECT idAgendamento FROM agendamento WHERE idAgendamento =2)),
 ((SELECT idServico FROM serviço WHERE idServico = 3),(SELECT idAgendamento FROm agendamento WHERE idAgendamento =3));
+
+
+
+ALTER TABLE usuario 
+ADD column nome varchar(450) not null;
+
+update usuario
+set nome = 'Malaquias' WHERE idUsuario = 1;
