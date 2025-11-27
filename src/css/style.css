@@ -119,7 +119,7 @@ main{
     font-size: 15px;
     position: absolute;
 }
-#dadosMostrar i{
+#lupa{
     position: absolute;
     font-size: 20px;
     right: 5px;
@@ -203,7 +203,7 @@ main{
     border: none;
     cursor: pointer;
     font-weight: 650;
-    transition: 0.4s;
+    /* transition: 0.4s; */
 }
 .blockCadastro button:hover{
     background-color: white;
@@ -215,5 +215,73 @@ main{
     right: -10px;
     top: -5px;
     width: 2.5vw;
+    border-radius: 25px;
+}
+
+.lixo{
+    position: absolute;
+    font-size: 10px;
+    visibility: hidden;
+
+}
+
+.editar{
+    position: absolute;
+    font-size: 10px;
+    visibility: hidden;
+}
+
+
+.clienteMudado{
+    transition: 0.4s;
+}
+#blockEdit{
+    position: absolute;
+    right: 25vw;
+    top: 17vh;
+    width: 46vw;
+    height: 45vh;
+    background-color: rgb(158, 158, 158);
+    border-radius: 7px;
+    padding: 20px;
+    visibility: hidden;
+
+}
+#blockEdit form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+#blockEdit input{
+    margin-top: 10px;
+    width: 20vw;
+    height: 3vh;
+    padding: 8px;
+    border-radius: 3px;
+    border: none;
+}
+
+#blockEdit button{
+    height: 4vh;
+    width: 10vw;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 650;
+    /* transition: 0.4s; */
+}
+
+#blockEdit button:hover{
+    background-color: white;
+    color: black;
+}
+
+
+#fechar2{
+    position: absolute;
+    right: -10px;
+    top: -5px;
+    width: 2.5vw !important;
     border-radius: 25px;
 }

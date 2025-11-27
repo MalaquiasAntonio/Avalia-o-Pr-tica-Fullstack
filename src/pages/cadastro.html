@@ -40,7 +40,7 @@
                 <div style="display: flex; align-items: center; width: 100vw; flex-direction: column;" id="block">
                     <div id="blockPes">
                         <input type="text" placeholder="Buscar Cliente...">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <i class="fa-solid fa-magnifying-glass" id="lupa"></i>
                     </div>
                     <div id="titulos">
                         <h3>Nome</h3>
@@ -61,44 +61,73 @@
                         <p>Antonio</p>
                         <p>554799194-7795</p>
                         <p>89253710</p>
+                        </div>
+                        <div style="width: 64vw; display: flex; ">
+                        </div>
                     </div>
-                    <div style="width: 64vw; display: flex; ">
+                    <div>
+                        <button id="new">Novo Cliente</button>
+                        <button id="edit">Editar</button>
+                        <button id="trash">Excluir</button>
                     </div>
                 </div>
-                <div>
-                    <button id="new">Novo Cliente</button>
-                    <button>Editar</button>
-                    <button>Excluir</button>
+            </section>
+        </div>
+        </div>
+    </main>
+    <div class="blockCadastro">
+        <button id="fechar"><i class="fa-solid fa-x"></i></button>
+        <h3> Cadastrar Novo Cliente</h3>
+        <div>
+            <form action="">
+                <div class="registrarRow">
+                    <div>
+                        <label>Nome</label>
+                        <input type="text" placeholder="Nome..." id="nomeCliente">
+                    </div>
+                    <div>
+                        <label>Celular</label>
+                        <input type="text" placeholder="Celular..." id="celular">
+                    </div>
                 </div>
-            </div>
-        </section>
+                <div style="margin-top: 20px;" class="registrarRow">
+                    <div style="display: flex; flex-direction: column;">
+                        <label>CEP</label>
+                        <input type="text" placeholder="CEP..." id="CEP">
+                    </div>
+                </div>
+            </form>
+            <br>
+            <button id="novoCliente">Cadastrar</button>
+        </div>
     </div>
-</div>
-</main>
-<div class="blockCadastro">
-    <button id="fechar"><i class="fa-solid fa-x"></i></button>
-    <h3> Cadastrar Novo Cliente</h3>
-    <div>
-        <form action="">
-            <div class="registrarRow">
-                <div>
-                    <label>Nome</label>
-                    <input type="text" placeholder="Nome..." id="nomeCliente">
+    <div id="blockEdit">
+       <button id="fechar2"><i class="fa-solid fa-x"></i></button>
+        <h3> Editar Cliente</h3>
+        <div>
+            <form action="">
+                <div class="registrarRow">
+                    <div>
+                        <label>Nome</label>
+                        <input type="text" placeholder="Nome..." id="nomeClienteEdit">
+                    </div>
+                    <div>
+                        <label>Celular</label>
+                        <input type="text" placeholder="Celular..." id="celularEdit">
+                    </div>
                 </div>
-                <div>
-                    <label>Celular</label>
-                    <input type="text" placeholder="Celular..." id="celular">
+                <div style="margin-top: 20px;" class="registrarRow">
+                    <div style="display: flex; flex-direction: column;">
+                        <label>CEP</label>
+                        <input type="text" placeholder="CEP..." id="CEPEdit">
+                    </div>
                 </div>
-            </div>
-            <div style="margin-top: 20px;" class="registrarRow">
-                <div style="display: flex; flex-direction: column;">
-                    <label>CEP</label>
-                    <input type="text" placeholder="CEP..." id="CEP">
-                </div>
-            </div>
-        </form>
-        <br>
-        <button id="novoCliente">Cadastrar</button>
+            </form>
+            <br>
+            <button id="editarCliente">Editar</button>
+        </div>
+    </div>
+
     <script src="/src/js/cadastroJS.js">      
     </script>
 </body>

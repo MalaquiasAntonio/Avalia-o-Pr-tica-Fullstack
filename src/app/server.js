@@ -39,6 +39,20 @@ app.get('/get/clientes',async(req,res)=>{
         return res.status(500).send('Erro interno do servidor ao buscar cliente.')
     }
 });
+app.get('/get/cliente/:id',async(req,res)=>{
+    const id = parseInt(req.params.id);
+    if(!id) return res.status(400).send('Falta coisa');
+    try {
+        const [cliente] = await db.query('SELECT * FROM cliente WHERE idCliente = ?',[id]);
+        return res.status(201).send(cliente);
+    } catch (error) {
+        console.error('Vish',error);
+        return res.status(500).send('Deu ruim');
+    }
+});
+
+
+
 app.get('/get/profissionais',async(req,res)=>{
     try {
         const [profissionais] = await db.query('SELECT * FROM profissional');
@@ -114,9 +128,46 @@ app.post('/post/cliente',async(req,res)=>{
     }
 });
 
-// app.delete('/delete/:value',async(req,res)=>{
-//     const value = req.params.value;
-// });
+
+app.put('/put/cliente/:id',async(req,res)=>{
+    const id = parseInt(req.params.id);
+    if(!id) return res.status(400).send('Falta informação');
+    const {nome,celular,CEP} = req.body;
+    if(!nome && !celular && !CEP) return res.status(400).send('Falta informação');
+    try {
+        const [clientes] = await db.query('SELECT * FROM cliente');
+        if(id > clientes[clientes.length-1].idCliente) return res.status(404).send('Id não existe!');
+        if(nome){
+            const [mudaNome] = await db.query('UPDATE cliente SET nome = ? WHERE idCliente = ?',[nome,id]);
+        }
+        if(celular){
+            const [mudaCelula] = await db.query('UPDATE cliente SET celular = ? WHERE idCliente = ?',[celular,id]);
+        }
+        if(CEP){
+            const [mudaCEP] = await db.query('UPDATE cliente SET CEP = ? WHERE idCliente = ?',[CEP,id]);
+        }
+        res.status(204).json();
+    } catch (error) {
+        console.error('Vish',error);
+        return res.status(500).send('Ocorreu um problema');
+    }
+});
+
+
+app.delete('/delete/:value',async(req,res)=>{
+    const value = parseInt(req.params.value);
+    if(!value){
+        return res.status(404).send('Falta informação');
+    }
+    try {
+        const [clientes] = await db.query('SELECT * FROM cliente');
+        const [tirar] = await db.query('DELETE FROM cliente WHERE idCliente = ?',[value]);
+        return res.status(204);
+    } catch (error) {
+        console.error('Vish',error);
+        return res.status(500).send('Ocorreu um erro');
+    }
+});
 
 
 app.listen(port,()=>{

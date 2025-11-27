@@ -1,3 +1,4 @@
+
 const borda = document.getElementById('borda');
 const user = document.getElementById('user');
 const login = document.getElementById('login');
@@ -15,8 +16,12 @@ const blockCadastro = document.getElementsByClassName('blockCadastro');
 const novo = document.getElementById('new');
 const main = document.getElementById('main');
 const fechar = document.getElementById('fechar');
+const fechar2 = document.getElementById('fechar2');
 const novoCliente = document.getElementById('novoCliente');
-
+let verifica = false;
+const nomeClienteEdit = document.getElementById('nomeClienteEdit');
+const celularEdit = document.getElementById('celularEdit');
+const CEPEdit = document.getElementById('CEPEdit');
 
 
 const antes = '<form><label>Email</label><input type="text" placeholder="Email" id="email"><br><label>Senha</label><input type="password" placeholder="Senha" id="senha" required><p id="errou">Credenciais inválidas*</p></form><br><button type="submit" id="entrar" onclick="logar()">Entrar</button>';
@@ -29,6 +34,10 @@ novo.addEventListener('click',()=>{
 });
 fechar.addEventListener('click',()=>{
     blockCadastro[0].style.visibility = 'hidden'
+    main.style.filter = 'blur(0px)';
+});
+fechar2.addEventListener('click',()=>{
+    blockEdit.style.visibility = 'hidden'
     main.style.filter = 'blur(0px)';
 });
 
@@ -62,7 +71,10 @@ novoCliente.addEventListener('click',()=>{
             console.log(data);
             if(!data) return;
             blockCadastro[0].style.visibility = 'hidden';
+            main.style.filter = 'blur(0px)';
             alert('Cliente Cadastrado');
+            window.location.reload();
+            return;
         })
         .catch(error=>{
             console.log('Deu ruim',error);
@@ -141,6 +153,7 @@ async function logar (){
         localStorage.setItem('dados.session',dados.session);
         noma = localStorage.getItem('dados.nome');
         session = localStorage.getItem('dados.session');
+        window.location.reload();
         return;
     }
     fetch('http://localhost:3000/logout',{
@@ -165,6 +178,7 @@ async function logar (){
             login.style.visibility = 'hidden';
             login.innerHTML = antes;
             console.log(dadosEnviados);
+            window.location.reload();
         })
         .catch(error=>{
             console.error('Falha na requisição:', error);
@@ -179,7 +193,140 @@ async function logar (){
 
 let dades = document.getElementsByClassName('dados');
 let block = document.getElementById('block');
-    fetch(`http://localhost:3000/get/clientes`)
+     
+
+const trash = document.getElementById('trash');
+const blockEdit = document.getElementById('blockEdit');
+
+const lixo = document.getElementsByClassName('lixo');
+const clienteNome = document.getElementsByClassName('cliente'); 
+const edit = document.getElementById('edit');
+const nomeEdit = document.getElementsByClassName('editar');
+let verificaEdit = false;
+let idMuda = '';
+
+edit.addEventListener('click',()=>{
+    if(verifica) return;
+    if(!verificaEdit){
+        for(let x = 0; x < nomeEdit.length;x++){
+            nomeEdit[x].style.visibility = 'visible';
+        }
+        return verificaEdit = true;
+    } 
+    for(let x = 0; x < nomeEdit.length; x++){
+        nomeEdit[x].style.visibility = 'hidden';
+    }
+    return verificaEdit = false;
+
+});
+
+trash.addEventListener('click',()=>{
+    if(verificaEdit) return;
+    if(!verifica){
+        for(let x = 0; x < lixo.length; x++){
+            clienteNome[x].style.cursor = 'pointer';
+            lixo[x].style.visibility = 'visible';
+            
+        }
+        return verifica = true;
+    } 
+    for(let x = 0; x < lixo.length; x++){
+            clienteNome[x].style.cursor = 'default';
+            lixo[x].style.visibility = 'hidden';
+        }
+    return verifica = false;
+});
+
+
+
+let editarCliente = document.getElementById('editarCliente');
+
+editarCliente.addEventListener('click',()=>{
+
+    let novosDados = {
+        nome: nomeClienteEdit.value,
+        celular: celularEdit.value,
+        CEP: CEPEdit.value 
+    }
+
+
+   fetch(`http://localhost:3000/put/cliente/${idMuda}`,{
+        method: 'PUT',
+        headers:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(novosDados)
+   })
+        .then(response=>{
+            if(!response.ok){
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            // return response.json()
+        })
+        .then(data=>{
+            console.log(data);
+            main.style.filter = 'blur(0px)';
+            blockEdit.style.visibility = 'hidden';
+            window.location.reload();
+            return alert('Edição feita!');
+        })
+});
+
+function pegarId (id){
+    if(verificaEdit){
+        main.style.filter = 'blur(3px)';
+        blockEdit.style.visibility = 'visible';
+        idMuda = id;
+
+        fetch(`http://localhost:3000/get/cliente/${id}`)
+            .then(response=>{
+                if(!response.ok){
+                    throw new Error(`Erro HTTP: ${response.status}`);
+                }
+                return response.json()
+            })
+            .then(data=>{
+                nomeClienteEdit.value = data[0].nome;
+                celularEdit.value = data[0].celular;
+                CEPEdit.value = data[0].CEP;
+
+            })
+    }
+
+
+    if(verifica){
+        fetch(`http://localhost:3000/delete/${id}`,{
+            method:'DELETE',
+             headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+             }
+        })
+            .then(response=>{
+                if(!response.ok){
+                    throw new Error(`Erro HTTP: ${response.status}`);
+                }
+                return response.json()
+            })
+            .then(data=>{
+                console.log(data)
+            })
+            .catch(error=>{
+                console.error('Erro', error)
+            });
+    
+        window.location.reload();
+        return alert('Cliente Deletado com sucesso!');
+    }
+}
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', async()=>{
+    await fetch(`http://localhost:3000/get/clientes`)
         .then((response) =>{                           
         if (!response.ok) {
             throw new Error(`Erro HTTP: ${response.status}`);
@@ -192,7 +339,7 @@ let block = document.getElementById('block');
             if(dades.length < data.length){
                 block.innerHTML += '<div class="dados"><p>Antonio</p><p>554799194-7795</p><p>89253710</p></div>';
             }
-            dades[x].innerHTML = `<p>${data[x].nome}</p>`;
+            dades[x].innerHTML = `<p id="${data[x].idCliente}" class ="cliente"onclick="pegarId(id)">${data[x].nome}<i class="fa-solid fa-trash-can lixo"></i><i class="fa-solid fa-pen-to-square editar"></i></p>`;
             dades[x].innerHTML += `<p>${data[x].celular}</p>`;
             dades[x].innerHTML += `<p>${data[x].CEP}</p>`;
 
@@ -201,13 +348,11 @@ let block = document.getElementById('block');
     .catch(error=>{
         console.error('Erro ao buscar dados:', error);
     });
-    
-    document.addEventListener('DOMContentLoaded',()=>{
-        let name = localStorage.getItem('dados.nome');
-        let session = localStorage.getItem('dados.session');
-        if(session){
-            nome.innerText = `Bem vindo, ${name}`;
-            nome.style.visibility = 'visible';
-            return;
-        }
-    });
+    let name = localStorage.getItem('dados.nome');
+    let session = localStorage.getItem('dados.session');
+    if(session){
+        nome.innerText = `Bem vindo, ${name}`;
+        nome.style.visibility = 'visible';
+        return;
+    }
+});
