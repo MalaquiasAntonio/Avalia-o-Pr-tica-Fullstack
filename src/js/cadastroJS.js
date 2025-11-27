@@ -293,8 +293,6 @@ function pegarId (id){
 
             })
     }
-
-
     if(verifica){
         fetch(`http://localhost:3000/delete/${id}`,{
             method:'DELETE',
@@ -311,13 +309,13 @@ function pegarId (id){
             })
             .then(data=>{
                 console.log(data)
+                console.log(verifica, id);
+                window.location.reload();
+                return alert('Cliente Deletado com sucesso!');
             })
             .catch(error=>{
                 console.error('Erro', error)
             });
-    
-        window.location.reload();
-        return alert('Cliente Deletado com sucesso!');
     }
 }
 

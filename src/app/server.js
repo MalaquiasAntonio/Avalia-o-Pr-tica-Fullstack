@@ -115,7 +115,7 @@ app.post('/logout',authenticate,(req,res)=>{
 });
 
 app.post('/post/cliente',async(req,res)=>{
-    let {nome,celular,CEP} = req.body;
+    const {nome,celular,CEP} = req.body;
     if(!nome || !celular || !CEP){
         return res.status(404).send('Falta informação');
     }
@@ -127,6 +127,19 @@ app.post('/post/cliente',async(req,res)=>{
         return res.status(500).send('Deu ruim');
     }
 });
+app.post('/post/profissional',async(req,res)=>{
+    const {nome,celular,disponibilidade} = req.body;
+    if(!nome || !celular || !disponibilidade) return res.status(400).send('Falta informação');
+    try {
+        const [novoProfissional] = await db.query('INSERT INTO profissional(nome,celular,disponibilidade) VALUES (?,?,?)',[nome,celular,disponibilidade]);
+        return res.status(201).send(novoProfissional);
+    } catch (error) {
+        console.error('Vish',error);
+        return res.status(500).send('Deu problema');
+    }
+});
+
+
 
 
 app.put('/put/cliente/:id',async(req,res)=>{
@@ -161,6 +174,7 @@ app.delete('/delete/:value',async(req,res)=>{
     }
     try {
         const [clientes] = await db.query('SELECT * FROM cliente');
+        const [tirarChave] = await db.query('DELETE FROM agendamento WHERE idDoCliente = ?',[value]);
         const [tirar] = await db.query('DELETE FROM cliente WHERE idCliente = ?',[value]);
         return res.status(204);
     } catch (error) {

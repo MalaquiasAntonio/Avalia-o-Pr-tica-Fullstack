@@ -12,7 +12,12 @@ const agendamentos = document.getElementById('agendamentos');
 const nome = document.getElementById('name');
 let noma = localStorage.getItem('dados.nome');
 let session = localStorage.getItem('dados.session');
-
+const blockCadastro = document.getElementsByClassName('blockCadastro');
+const fechar = document.getElementById('fechar');
+const cadastrarProfissional = document.getElementById('cadastrarProfissional');
+const excluir = document.getElementById('excluir');
+const lixo = document.getElementsByClassName('lixo');
+let verifica = false;
 
 const antes = '<form><label>Email</label><input type="text" placeholder="Email" id="email"><br><label>Senha</label><input type="password" placeholder="Senha" id="senha" required><p id="errou">Credenciais inválidas*</p></form><br><button type="submit" id="entrar" onclick="logar()">Entrar</button>';
 
@@ -39,6 +44,64 @@ borda.addEventListener('click',()=>{
     login.innerHTML = '<button type="submit" id="entrar" onclick="logar()">Sair</button>';
     login.style.visibility = 'visible';
 });
+const novoProfissional = document.getElementById('novoProfissional');
+
+fechar.addEventListener('click',()=>{
+    blockCadastro[0].style.visibility = 'hidden';
+});
+
+novoProfissional.addEventListener('click',()=>{
+    // let disponibilidade = document.getElementById('disponibilidade');
+    blockCadastro[0].style.visibility = 'visible';
+    
+});
+excluir.addEventListener('click',()=>{
+    if(!verifica){
+        for(let x = 0; x < lixo.length; x ++){
+            lixo[x].style.visibility = 'visible'
+        }
+        return verifica = true;
+    }
+    for(let x = 0; x < lixo.length; x++){
+        lixo[x].style.visibility = 'hidden';
+    }
+    return verifica = false;
+});
+cadastrarProfissional.addEventListener('click',()=>{
+    let disponibilidade = document.getElementById('disponibilidade');
+    let nomeProfissional = document.getElementById('nomeProfissional');
+    let celular = document.getElementById('celular');
+    let dados = {
+        nome: nomeProfissional.value,
+        celular: celular.value,
+        disponibilidade: disponibilidade.value
+    }
+    fetch('http://localhost:3000/post/profissional',{
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+           body: JSON.stringify(dados)
+    })
+        .then(response=>{
+            if(!response.ok){
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            return response.json()
+        })
+        .then(data=>{
+            console.log(data)
+            window.location.reload();
+            return alert('Cadastro concluido!')
+        })
+        .catch(error=>{
+            console.log('Deu erro',error)
+        })
+});
+
+
+
 let dados = {};
 async function logar (){
     if(!session){
@@ -124,6 +187,9 @@ async function logar (){
     // login.style.visibility = 'hidden';
 
 
+
+
+
 document.addEventListener('DOMContentLoaded',()=>{
     let dados2 = document.getElementsByClassName('dados');
     let block = document.getElementById('block');
@@ -140,7 +206,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                 if(dados2.length < data.length){
                     block.innerHTML += '<div class="dados"><p>Charmes</p><p>554799194-7795</p><p>89253710</p></div>'
                 }
-                dados2[x].innerHTML = `<p>${data[x].nome}</p>`;
+                dados2[x].innerHTML = `<p id="${data[x].idProfissional}" class ="cliente"onclick="pegarId(id)">${data[x].nome}<i class="fa-solid fa-trash-can lixo"></i><i class="fa-solid fa-pen-to-square editar"></i></p>`;
                 dados2[x].innerHTML += `<p>${data[x].celular}</p>`;
                 if(data[x].disponibilidade == 1){
                     dados2[x].innerHTML += `<p>Disponível</p>`;

@@ -285,3 +285,9 @@ main{
     width: 2.5vw !important;
     border-radius: 25px;
 }
+
+#disponibilidade{
+    height: 5vh;
+    width: 10vw;
+    border: none;
+}

@@ -64,13 +64,70 @@
                     </div>
                 </div>
                 <div>
-                    <button>Novo Profissional</button>
+                    <button id="novoProfissional">Novo Profissional</button>
                     <button>Editar</button>
-                    <button>Excluir</button>
+                    <button id="excluir">Excluir</button>
                 </div>
             </div>
         </section>
     </main>
+    <div class="blockCadastro">
+        <button id="fechar"><i class="fa-solid fa-x"></i></button>
+        <h3> Cadastrar Novo Profissional</h3>
+        <div>
+            <form action="">
+                <div class="registrarRow">
+                    <div>
+                        <label>Nome</label>
+                        <input type="text" placeholder="Nome..." id="nomeProfissional">
+                    </div>
+                    <div>
+                        <label>Celular</label>
+                        <input type="text" placeholder="Celular..." id="celular">
+                    </div>
+                </div>
+                <div style="margin-top: 20px;" class="registrarRow">
+                    <div style="display: flex; flex-direction: column;">
+                        <label>Disponibilidade</label>
+                        <br>
+                        <select id="disponibilidade">
+                            <option value="-">-</option>
+                            <option value="1">disponível</option>
+                            <option value="0">Não disponível</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <button id="cadastrarProfissional">Cadastrar</button>
+        </div>
+    </div>
+    <div id="blockEdit">
+       <button id="fechar2"><i class="fa-solid fa-x"></i></button>
+        <h3> Editar Cliente</h3>
+        <div>
+            <form action="">
+                <div class="registrarRow">
+                    <div>
+                        <label>Nome</label>
+                        <input type="text" placeholder="Nome..." id="nomeClienteEdit">
+                    </div>
+                    <div>
+                        <label>Celular</label>
+                        <input type="text" placeholder="Celular..." id="celularEdit">
+                    </div>
+                </div>
+                <div style="margin-top: 20px;" class="registrarRow">
+                    <div style="display: flex; flex-direction: column;">
+                        <label>CEP</label>
+                        <input type="text" placeholder="CEP..." id="CEPEdit">
+                    </div>
+                </div>
+            </form>
+            <br>
+            <button id="editarCliente">Editar</button>
+        </div>
+    </div>
     <script src="/src/js/profissionalJS.js"></script>
 </body>
 </html>
