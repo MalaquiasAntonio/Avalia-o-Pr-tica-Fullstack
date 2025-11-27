@@ -15,6 +15,7 @@ const blockCadastro = document.getElementsByClassName('blockCadastro');
 const novo = document.getElementById('new');
 const main = document.getElementById('main');
 const fechar = document.getElementById('fechar');
+const novoCliente = document.getElementById('novoCliente');
 
 
 
@@ -29,6 +30,44 @@ novo.addEventListener('click',()=>{
 fechar.addEventListener('click',()=>{
     blockCadastro[0].style.visibility = 'hidden'
     main.style.filter = 'blur(0px)';
+});
+
+novoCliente.addEventListener('click',()=>{
+    let nomeCliente = document.getElementById('nomeCliente');
+    let celular = document.getElementById('celular');
+    let CEP = document.getElementById('CEP');
+
+    let dados = {
+        nome: nomeCliente.value,
+        celular: celular.value,
+        CEP: CEP.value
+    }
+
+    fetch('http://localhost:3000/post/cliente',{
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(dados)
+    })
+
+        .then(response=>{
+            if(!response.ok){
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+            return response.json(); 
+        })
+        .then(data=>{
+            console.log(data);
+            if(!data) return;
+            blockCadastro[0].style.visibility = 'hidden';
+            alert('Cliente Cadastrado');
+        })
+        .catch(error=>{
+            console.log('Deu ruim',error);
+        })
+    
 });
 
 borda.addEventListener('mouseover',()=>{

@@ -106,7 +106,7 @@ app.post('/post/cliente',async(req,res)=>{
         return res.status(404).send('Falta informação');
     }
     try {
-        const [novoCliente] = await db.query('INSER INTO cliente(nome,celular,CEP) VALUES(?,?,?)',[nome,celular,CEP]);
+        const [novoCliente] = await db.query('INSERT INTO cliente(nome,celular,CEP) VALUES(?,?,?)',[nome,celular,CEP]);
         return res.status(201).send(novoCliente);
     } catch (error) {
         console.error('Vish',error);
