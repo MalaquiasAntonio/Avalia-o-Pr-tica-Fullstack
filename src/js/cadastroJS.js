@@ -340,6 +340,7 @@ document.addEventListener('DOMContentLoaded', async()=>{
             dades[x].innerHTML = `<p id="${data[x].idCliente}" class ="cliente"onclick="pegarId(id)">${data[x].nome}<i class="fa-solid fa-trash-can lixo"></i><i class="fa-solid fa-pen-to-square editar"></i></p>`;
             dades[x].innerHTML += `<p>${data[x].celular}</p>`;
             dades[x].innerHTML += `<p>${data[x].CEP}</p>`;
+            console.log();
 
         }
     })                         
